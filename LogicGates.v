@@ -269,62 +269,177 @@ initial begin
   #5 a = 1; b = 1;
 end
 endmodule
-//-------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module and_gate(a,b,out);
+//++++++++++++++++++++++++++++++++++++++++++++++++BEHAVIOURAL MODELLING+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//--------------------------------------OR GATE by behavioural modelling
+module or_behavioural (a,b,out);
 input a,b;
-output out;
+output reg out;
 
- assign out = a & b;
+always@(*) begin
+if ((a == 0) & (b == 0))begin
+ out = 0;end
+else begin 
+  out = 1;end
+end
 endmodule
-module and_gate_tb;
+module or_behavioural_tb; // testbench
 reg a,b;
 wire out;
 
-and_gate hhh(a,b,out);
+or_behavioural a34(a,b,out);
 initial begin
-  $monitor("a = %b, b = %b, out = %b", a,b,out);
-  a =0; b =0 ;
-  #5 a = 0; b = 1;
-  #5 a = 1; b = 0;
-  #5 a = 1; b = 1;
+  a = 0; b = 0;
+  #10 a = 0; b = 1;
+  #10 a = 1; b = 0;
+  #10 a = 1; b = 1;
 end
 endmodule
+//---------------------------------------AND GATE by behavioural modelling
+module and_behavioural (a,b,y);
+input a,b;
+output reg y;
 
-// ---------------------------------------------------OR GATE---------------------------------------------------------------
- 
+always@(*)begin
+  if (a == 1'b1 & b == 1'b1)begin
+    y = 1;end
+  else begin
+    y = 0;end
+end
+endmodule
+module and_behavioural_tb;
+reg a,b;
+wire y;
+
+and_behavioural sd2(a,b,y);
+initial begin
+  a = 0; b = 0;
+  #10 a = 0; b = 1;
+  #10 a = 1; b = 0;
+  #10 a = 1; b = 1;
+end
+endmodule
+//------------------------------------NOT GATE by behavioural modelling
+module not_behavioural (a,out);
+input a;
+output reg out;
+
+always@(*)begin
+  if (a == 1'b1)begin
+    out = 0;end
+  else begin
+   out = 1;end
+end
+endmodule
+module not_behavioural_tb; // testbench
+reg a;
+wire out;
+
+not_behavioural (a, out);
+initial begin
+a = 1;
+#10 a = 0;
+#10 a = 1;
+#10 a = 0;
+end
+endmodule
+//-----------------------------------NAND GATE by behavioural modelling
+module nand_behavioural (a,b,y);
+input a,b;
+output reg y;
+
+always@(*)begin
+  if (a == 1'b1 & b == 1'b1)begin
+   y = 0;end
+  else begin
+   y = 1; end
+end
+endmodule
+module nand_behavioural_tb; // testbench
+reg a,b;
+wire y;
+
+nand_behavioural crf(a,b,y);
+initial begin
+  a = 0; b = 0;
+  #10 a = 0; b = 1;
+  #10 a = 1; b = 0;
+  #10 a = 1; b = 1;
+end
+endmodule
+//--------------------------------------NOR GATE by behavioural modelling
+module nor_behavioural (a,b,y);
+input a,b;
+output reg y;
+
+always@(*)begin
+  if (a == 1'b0 & b == 1'b0)begin
+    y = 1'b1;end
+    else begin
+     y = 0;end
+end
+endmodule
+module nor_behavioural_tb; // testbench
+reg a,b;
+wire y;
+
+nor_behavioural s2e(a,b,y);
+initial begin
+  a = 0; b = 0;
+  #10 a = 0; b = 1;
+  #10 a = 1; b = 0;
+  #10 a = 1; b = 1;
+  end
+endmodule
+//----------------------------------------XOR GATE by behavioural modelling
+module xor_behavioural (a,b,out);
+input a,b;
+output reg out;
+
+always@(*)begin
+  if (a == b)begin
+    out = 1'b0;end
+  else begin
+    out = 1;end
+end
+endmodule
+module xor_behavioural_tb; // testbench
+reg a,b;
+wire out;
+
+xor_behavioural d45(a,b,out);
+initial begin 
+  a = 0; b = 0;
+  #10 a = 0; b = 1;
+  #10 a = 1; b = 0;
+  #10 a = 1; b = 1;
+end
+endmodule
+//---------------------------------------XNOR GATE by behavioural modelling
+module xnor_behavioural (a,b,out);
+input a,b;
+output reg out;
+
+always@(*)begin
+  if (a == b)begin
+    out = 1'b1;end
+  else begin
+    out = 0;end
+end
+endmodule
+module xnor_behavioural_tb; // testbench
+reg a,b;
+wire out;
+
+xnor_behavioural sdx(a,b,out);
+initial begin
+  a = 0; b = 0;
+  #10 a = 0; b = 1;
+  #10 a = 1; b = 0;
+  #10 a = 1; b = 1;
+end 
+endmodule
+//---------------------------------------------------------------------------------------------------
 
 
 
